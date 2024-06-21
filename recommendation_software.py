@@ -1,62 +1,57 @@
-# Codecademy Portfolio Project: Recommendation Software
+from dataset import genres, collection
 
 
-genres = ['adventure', 'animation', 'biography', 'comedy',
-          'drama', 'fantasy', 'history', 'horror', 'musical', 
-          'romance', 'sci-fi', 'thriller']
 
-dataset = [['adventure', 'Inception', '2010', '8.8'],
-           ['sci-fi', 'Interstellar', '2014', '8.7'],
-           ['fantasy', 'The Lord of the Rings: The Fellowship of the Ring', '2001', '8.9'],
-           ['fantasy', 'The Lord of the Rings: The Two Towers', '2002', '8.8'],
-           ['fantasy', 'The Lord of the Rings: The Return of the King', '2003', '9'],
-           ['adventure', 'Gladiator', '2000', '8.5'],
-           ['fantasy', 'Avatar', '2009', '7.9'],
-           ['adventure', 'Iron Man', '2008', '7.9'],
-           ['adventure', 'Mad  Max: Fury Road', '2015', '8.1'],
-           ['adventure', 'The Hunger Games', '2012', '7.2'],
-           ['animation', 'WALL-E', '2008', '8.4'],
-           ['animation', 'The Lion King', '1994', '8.5'],
-           ['animation', 'Up', '2009', '8.3'],
-           ['animation', 'Finding Nemo', '2003', '8.2'],
-           ['animation', 'Cinderella', '1950', '7.3'],
-           ['biography', 'A Beautiful Mind', '2001', '8.2'],
-           ['biography', 'The Pianist', '2002', '8.5'],
-           ['biography', "The King's Speach", '2010', '8.0'],
-           ['comedy', 'The Hangover', '2009', '7.7'],
-           ['comedy', 'Ted', '2012', '6.9'],
-           ['comedy', 'Zombieland', '2009', '7.5'],
-           ['comedy', 'Dumb and Dumber', '1994', '7.3'],
-           ['drama', 'The Shawshank Redemption', '1994', '9.3'],
-           ['drama', 'The Godfather', '1972', '9.2'],
-           ['drama', 'The Green Mile', '1999', '8.6'],
-           ['drama', 'La vita e bella', '1997', '8.6'],
-           ['fantasy', 'Stardust', '2007', '7.6'],
-           ['history', "Schindler's List", '1993', '9.0'],
-           ['history', 'Der Untergang', '2004', '8.2'],
-           ['history', 'Kingdom of Heaven', '2005', '7.3'],
-           ['history', 'Lincoln', '2012', '7.3'],
-           ['horror', 'Alien', '1979', '8.5'],
-           ['horror', 'I Am Legend', '2007', '7.2'],
-           ['horror', 'Sleepy Hollow', '1999', '7.3'],
-           ['horror', 'The Conjuring', '2013', '7.5'],
-           ['musical', 'The Sound of Music', '1965', '8.1'],
-           ['musical', 'Les Miserables', '2012', '7.5'],
-           ['musical', 'The Phantom of the Opera', '2004', '7.2'],
-           ['musical', 'The Greatest Showman', '2017', '7.5'],
-           ['romance', 'The Notebook', '2004', '7.8'],
-           ['drama', 'Titanic', '1997', '7.9'],
-           ['romance', 'Pride and Prejudice', '2005', '7.8'],
-           ['romance', 'About Time', '2013', '7.8'],
-           ['romance', 'Atonement', '2007', '7.8'],
-           ['romance', 'La La Land', '2016', '8.0'],
-           ['sci-fi', 'Matrix', '1999', '8.7'],
-           ['sci-fi', 'Iron Man', '2008', '7.9'],
-           ['sci-fi', 'Oblivion', '2013', '7.0'],
-           ['sci-fi', 'X-Men', '2000', '7.3'],
-           ['sci-fi', 'Oblivion', '2013', '7.0'],
-           ['thriller', 'Shutter Island', '2010', '8.2'],
-           ['thriller', 'The Prestige', '2006', '8.5'],
-           ['thriller', 'The Departed', '2006', '8.5'],
-           ['thriller', 'Now You See Me', '2013', '7.2'],
-           ] 
+def construct_user_choice(genres_list):
+    options = []
+    user_input = input("What type of movie would you want to see? Type the beginning of the genre and press enter to check if we have it.\n")
+    for genre in genres_list:
+        if user_input == genre[0:len(user_input)]:
+            options.append(genre)
+    if len(options) == 1:
+        print("The only option available is: {}.".format(options[0]))
+        answer = input("Would you want to see {} movies? Enter y/n: ".format(options[0]))
+        if answer == 'y':
+            print("You choose " + options[0])
+            return options[0]
+        else:
+            return None
+    elif len(options) > 1:
+        print("The options available are: " + ', '.join(options))
+        return construct_user_choice(options)
+    else:
+        print("No option available for your input: {}".format(user_input))
+        return None
+    
+
+
+
+
+def get_genre(genres_list):
+    genre = construct_user_choice(genres_list)
+    if genre:
+        print("Am returnat " + genre)
+        return genre
+    else:
+        print("N-am returnat nimic")
+        another_genre = input("Do you want to choose another type of movies? Enter y/n: ")
+        if another_genre =='y':
+            return get_genre(genres_list)
+        else:
+            return None
+        
+
+
+
+
+def print_movies(genres_list, movies_collection):
+    genre = get_genre(genres_list)
+    if genre:
+        for movie in movies_collection:
+            if movie[0] == genre:
+                print("* {0} ({1})\n IMDB score: {2}".format(movie[1], movie[2], movie[3]))
+    else:
+        print("Thank you for using our recommendation software!")
+
+
+print_movies(genres, collection)
