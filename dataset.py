@@ -1,8 +1,8 @@
 
 
-genres = ['adventure', 'animation', 'biography', 'comedy',
-          'drama', 'fantasy', 'history', 'horror', 'musical', 
-          'romance', 'sci-fi', 'thriller']
+genres = ['thriller', 'adventure', 'sci-fi', 'musical', 'history',
+          'drama', 'fantasy', 'animation', 'horror', 
+          'romance', 'comedy', 'biography']
 
 collection = [['adventure', 'Inception', '2010', '8.8'],
            ['sci-fi', 'Interstellar', '2014', '8.7'],
@@ -59,3 +59,5 @@ collection = [['adventure', 'Inception', '2010', '8.8'],
            ['thriller', 'The Departed', '2006', '8.5'],
            ['thriller', 'Now You See Me', '2013', '7.2'],
            ] 
+
+
